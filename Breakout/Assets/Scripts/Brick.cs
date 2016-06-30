@@ -6,6 +6,7 @@ public class Brick : MonoBehaviour
     public int health = 1;
     public int score = 100;
 
+    public GameObject ScoreTextPrefab;
     public GameObject ParticlePrefab;
 
     // Use this for initialization
@@ -37,6 +38,8 @@ public class Brick : MonoBehaviour
     private void Kill()
     {
         Instantiate(ParticlePrefab, transform.position, transform.rotation);
+        GameObject sa = Instantiate(ScoreTextPrefab, transform.position, transform.rotation) as GameObject;
+        sa.GetComponent<ScoreAnimation>().SetLabel(score.ToString());
         Destroy(this.gameObject);
     }
 }

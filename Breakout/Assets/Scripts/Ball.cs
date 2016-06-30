@@ -6,6 +6,8 @@ public class Ball : MonoBehaviour
     private Rigidbody2D rb2d;
     public float forceMag = 1f;
 
+    private bool hasStarted = false;
+
     // Use this for initialization
     void Start()
     {
@@ -16,32 +18,30 @@ public class Ball : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Make sure the ball is not stuck in x-axis
-
-        if (rb2d.velocity.x > 0f && rb2d.velocity.x < 0.3f)
+        if (hasStarted)
         {
-            rb2d.velocity = new Vector2(0.3f, rb2d.velocity.y);
-        }
-        else if (rb2d.velocity.x < 0 && rb2d.velocity.x > -0.3f)
-        {
-            rb2d.velocity = new Vector2(-0.3f, rb2d.velocity.y);
-        }
+            // Make sure the ball is not stuck in x-axis
 
-        // Make sure the ball is not stuck in y-axis
+            if (rb2d.velocity.x > 0f && rb2d.velocity.x < 0.3f)
+            {
+                rb2d.velocity = new Vector2(0.3f, rb2d.velocity.y);
+            }
+            else if (rb2d.velocity.x < 0 && rb2d.velocity.x > -0.3f)
+            {
+                rb2d.velocity = new Vector2(-0.3f, rb2d.velocity.y);
+            }
 
-        if (rb2d.velocity.y > 0f && rb2d.velocity.y < 0.3f)
-        {
-            rb2d.velocity = new Vector2(rb2d.velocity.x, 0.3f);
-        }
-        else if (rb2d.velocity.x < 0 && rb2d.velocity.x > -0.3f)
-        {
-            rb2d.velocity = new Vector2(rb2d.velocity.x, -0.3f);
-        }
-    }
+            // Make sure the ball is not stuck in y-axis
 
-    public void EnableKinematic(bool b)
-    {
-        rb2d.isKinematic = b;
+            if (rb2d.velocity.y > 0f && rb2d.velocity.y < 0.3f)
+            {
+                rb2d.velocity = new Vector2(rb2d.velocity.x, 0.3f);
+            }
+            else if (rb2d.velocity.x < 0 && rb2d.velocity.x > -0.3f)
+            {
+                rb2d.velocity = new Vector2(rb2d.velocity.x, -0.3f);
+            }
+        }
     }
 
     public float GetForceMag()
@@ -57,11 +57,13 @@ public class Ball : MonoBehaviour
     public void AddForce(float f)
     {
         rb2d.AddForce(new Vector2(f, forceMag));
+        hasStarted = true;
     }
 
     public void AddForce()
     {
         rb2d.AddForce(new Vector2(forceMag, forceMag));
+        hasStarted = true;
     }
 
     public void AddForce(bool right)
@@ -70,5 +72,7 @@ public class Ball : MonoBehaviour
             rb2d.AddForce(new Vector2(-forceMag, forceMag));
         else
             rb2d.AddForce(new Vector2(forceMag, forceMag));
+
+        hasStarted = true;
     }
 }

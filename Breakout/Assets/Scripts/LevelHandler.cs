@@ -1,8 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class LevelHandler : MonoBehaviour
 {
+    // UI
+    public Text scoreText;
+    public Text ballsText;
+
     // Gameplay
     public GameObject PadObject;
     public float startHeignt;
@@ -12,6 +17,7 @@ public class LevelHandler : MonoBehaviour
 
     // Score & Statistics
     private int score = 0;
+    private int amountOfBalls = 3;
     private int amountOfBlocks;
     private int totalAmountOfBlocks;
 
@@ -21,6 +27,9 @@ public class LevelHandler : MonoBehaviour
     {
         amountOfBlocks = GameObject.FindObjectsOfType<Brick>().Length;
         totalAmountOfBlocks = amountOfBlocks;
+
+        scoreText.text = score.ToString();
+        ballsText.text = amountOfBalls.ToString();
 
         StartRound();
     }
@@ -38,5 +47,16 @@ public class LevelHandler : MonoBehaviour
         GameObject newBall = Instantiate(StartBallPrefab, pos, rootTrans.rotation) as GameObject;
 
         PadObject.GetComponent<FixedJoint2D>().connectedBody = newBall.GetComponent<Rigidbody2D>();
+        PadObject.GetComponent<Paddle>().Reset();
+    }
+
+    public void EndRound()
+    {
+        amountOfBalls--;
+        ballsText.text = amountOfBalls.ToString();
+        if(amountOfBalls > 0)
+        {
+            StartRound();
+        }
     }
 }

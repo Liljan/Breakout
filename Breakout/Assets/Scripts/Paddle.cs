@@ -44,8 +44,7 @@ public class Paddle : MonoBehaviour
             if (ball != null)
             {
                 fixJoint2d.connectedBody = null;
-                fixJoint2d.enabled = false;
-                hasStarted = true;
+                StartRound();
 
                 if (ball.transform.position.x > 0f)
                 {
@@ -61,5 +60,17 @@ public class Paddle : MonoBehaviour
         //clamp x-position
         /* transform.position = new Vector2(Mathf.Clamp(transform.position.x, xMin, xMax),
            transform.position.y); */
+    }
+
+    public void Reset()
+    {
+        hasStarted = false;
+        fixJoint2d.enabled = true;
+    }
+
+    public void StartRound()
+    {
+        hasStarted = true;
+        fixJoint2d.enabled = false;
     }
 }
