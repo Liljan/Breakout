@@ -12,12 +12,16 @@ public class Paddle : MonoBehaviour
     private float xAxis;
 
     private Rigidbody2D rb2d;
+    private FixedJoint2D fixJoint2d;
     private BoxCollider2D bc2d;
+
+    private bool hasStarted = false;
 
     // Use this for initialization
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        fixJoint2d = GetComponent<FixedJoint2D>();
     }
 
     // Update is called once per frame
@@ -32,8 +36,30 @@ public class Paddle : MonoBehaviour
         else //if (xAxis > 0f)
             rb2d.velocity = new Vector2(speed, 0f);
 
-        // clamp x-position
-        transform.position = new Vector2(Mathf.Clamp(transform.position.x, xMin, xMax), 
-            transform.position.y);
+
+        // shoot ball
+        if (Input.GetButton("Shoot") && !hasStarted)
+        {
+            Ball ball = fixJoint2d.connectedBody.GetComponentInParent<Ball>();
+            if (ball != null)
+            {
+                fixJoint2d.connectedBody = null;
+                fixJoint2d.enabled = false;
+                hasStarted = true;
+
+                if (ball.transform.position.x > 0f)
+                {
+                    ball.AddForce(true);
+                }
+                else
+                {
+                    ball.AddForce(false);
+                }
+            }
+        }
+
+        //clamp x-position
+        /* transform.position = new Vector2(Mathf.Clamp(transform.position.x, xMin, xMax),
+           transform.position.y); */
     }
 }
