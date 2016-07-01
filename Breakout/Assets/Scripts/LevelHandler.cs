@@ -28,8 +28,7 @@ public class LevelHandler : MonoBehaviour
         amountOfBlocks = GameObject.FindObjectsOfType<Brick>().Length;
         totalAmountOfBlocks = amountOfBlocks;
 
-        scoreText.text = score.ToString();
-        ballsText.text = amountOfBalls.ToString();
+        UpdateLabels();
 
         StartRound();
     }
@@ -43,7 +42,7 @@ public class LevelHandler : MonoBehaviour
     public void StartRound()
     {
         Transform rootTrans = PadObject.transform;
-        Vector2 pos = new Vector2(rootTrans.position.x,rootTrans.position.y + startHeignt);
+        Vector2 pos = new Vector2(rootTrans.position.x, rootTrans.position.y + startHeignt);
         GameObject newBall = Instantiate(StartBallPrefab, pos, rootTrans.rotation) as GameObject;
 
         PadObject.GetComponent<FixedJoint2D>().connectedBody = newBall.GetComponent<Rigidbody2D>();
@@ -54,9 +53,22 @@ public class LevelHandler : MonoBehaviour
     {
         amountOfBalls--;
         ballsText.text = amountOfBalls.ToString();
-        if(amountOfBalls > 0)
+        if (amountOfBalls > 0)
         {
             StartRound();
         }
+    }
+
+    public void AddScore(int s)
+    {
+        score += s;
+
+        UpdateLabels();
+    }
+
+    private void UpdateLabels()
+    {
+        scoreText.text = score.ToString();
+        ballsText.text = amountOfBalls.ToString();
     }
 }

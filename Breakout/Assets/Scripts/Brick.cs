@@ -9,10 +9,12 @@ public class Brick : MonoBehaviour
     public GameObject ScoreTextPrefab;
     public GameObject ParticlePrefab;
 
+    private static LevelHandler levelhandler;
+
     // Use this for initialization
     void Start()
     {
-
+        levelhandler = GameObject.FindObjectOfType<LevelHandler>();
     }
 
     // Update is called once per frame
@@ -40,6 +42,8 @@ public class Brick : MonoBehaviour
         Instantiate(ParticlePrefab, transform.position, transform.rotation);
         GameObject sa = Instantiate(ScoreTextPrefab, transform.position, transform.rotation) as GameObject;
         sa.GetComponent<ScoreAnimation>().SetLabel(score.ToString());
+
+        levelhandler.AddScore(score);
         Destroy(this.gameObject);
     }
 }

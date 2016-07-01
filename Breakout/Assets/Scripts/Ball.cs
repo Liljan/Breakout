@@ -22,24 +22,24 @@ public class Ball : MonoBehaviour
         {
             // Make sure the ball is not stuck in x-axis
 
-            if (rb2d.velocity.x > 0f && rb2d.velocity.x < 0.3f)
+            if (rb2d.velocity.x > 0f && rb2d.velocity.x < 1f)
             {
-                rb2d.velocity = new Vector2(0.3f, rb2d.velocity.y);
+                rb2d.velocity = new Vector2(1f, rb2d.velocity.y);
             }
-            else if (rb2d.velocity.x < 0 && rb2d.velocity.x > -0.3f)
+            else if (rb2d.velocity.x < 0 && rb2d.velocity.x > -1f)
             {
-                rb2d.velocity = new Vector2(-0.3f, rb2d.velocity.y);
+                rb2d.velocity = new Vector2(-1f, rb2d.velocity.y);
             }
 
             // Make sure the ball is not stuck in y-axis
 
-            if (rb2d.velocity.y > 0f && rb2d.velocity.y < 0.3f)
+            if (rb2d.velocity.y > 0f && rb2d.velocity.y < 1f)
             {
-                rb2d.velocity = new Vector2(rb2d.velocity.x, 0.3f);
+                rb2d.velocity = new Vector2(rb2d.velocity.x, 1f);
             }
-            else if (rb2d.velocity.x < 0 && rb2d.velocity.x > -0.3f)
+            else if (rb2d.velocity.x < 0 && rb2d.velocity.x > -1f)
             {
-                rb2d.velocity = new Vector2(rb2d.velocity.x, -0.3f);
+                rb2d.velocity = new Vector2(rb2d.velocity.x, -1f);
             }
         }
     }
