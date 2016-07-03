@@ -17,11 +17,16 @@ public class Paddle : MonoBehaviour
 
     private bool hasStarted = false;
 
+    // sticky pad
+    private int stickyBounces = 0;
+    private int maxStickyBounces;
+
     // Use this for initialization
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
         fixJoint2d = GetComponent<FixedJoint2D>();
+        stickyBounces = 1;
     }
 
     // Update is called once per frame
@@ -38,13 +43,13 @@ public class Paddle : MonoBehaviour
 
 
         // shoot ball
-        if (Input.GetButton("Shoot") && !hasStarted)
+        if (Input.GetButtonDown("Shoot") && stickyBounces > 0)
         {
             Ball ball = fixJoint2d.connectedBody.GetComponentInParent<Ball>();
             if (ball != null)
             {
                 fixJoint2d.connectedBody = null;
-                StartRound();
+                stickyBounces--;
 
                 if (ball.transform.position.x > 0f)
                 {
@@ -55,6 +60,16 @@ public class Paddle : MonoBehaviour
                     ball.AddForce(false);
                 }
             }
+        }
+
+        // debug speed
+        if (Input.GetButtonDown("Speed"))
+        {
+            Time.timeScale = GLOBALS.SPEED_UP_SCALE;
+        }
+        else if (Input.GetButtonUp("Speed"))
+        {
+            Time.timeScale = 1f;
         }
 
         //clamp x-position
@@ -68,9 +83,13 @@ public class Paddle : MonoBehaviour
         fixJoint2d.enabled = true;
     }
 
-    public void StartRound()
+    public void Stick()
     {
-        hasStarted = true;
+
+    }
+
+    public void UnStick()
+    {
         fixJoint2d.enabled = false;
     }
 }

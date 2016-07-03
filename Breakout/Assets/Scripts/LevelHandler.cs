@@ -7,6 +7,10 @@ public class LevelHandler : MonoBehaviour
     // UI
     public Text scoreText;
     public Text ballsText;
+    public Text fpsText;
+    public Text timeScaleText;
+    public Text timeText;
+    public float elapsedTime;
 
     // Gameplay
     public GameObject PadObject;
@@ -15,12 +19,14 @@ public class LevelHandler : MonoBehaviour
 
     private bool hasStarted = false;
 
+    // power ups
+
+
     // Score & Statistics
     private int score = 0;
     private int amountOfBalls = 3;
     private int amountOfBlocks;
     private int totalAmountOfBlocks;
-
 
     // Use this for initialization
     void Start()
@@ -36,7 +42,8 @@ public class LevelHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        UpdateDebugLabels();
+        elapsedTime += Time.deltaTime;
     }
 
     public void StartRound()
@@ -62,7 +69,6 @@ public class LevelHandler : MonoBehaviour
     public void AddScore(int s)
     {
         score += s;
-
         UpdateLabels();
     }
 
@@ -71,4 +77,20 @@ public class LevelHandler : MonoBehaviour
         scoreText.text = score.ToString();
         ballsText.text = amountOfBalls.ToString();
     }
+
+    private void UpdateDebugLabels()
+    {
+        fpsText.text = (1f / Time.deltaTime).ToString();
+        timeScaleText.text = Time.timeScale.ToString();
+        timeText.text = elapsedTime.ToString();
+    }
+
+    public IEnumerator EnableLongerPad(float time)
+    {
+        PadObject.transform.localScale = new Vector3(1f, 2f, 1f);
+        yield return new WaitForSeconds(time);
+        PadObject.transform.localScale = Vector3.one;
+    }
+
+
 }

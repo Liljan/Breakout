@@ -28,7 +28,6 @@ public class Brick : MonoBehaviour
 
         if (coll.gameObject.tag.Equals("Ball"))
         {
-            Debug.Log("Ball Collision");
             this.TakeDamage(1);
             if (health <= 0)
                 Kill();
