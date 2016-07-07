@@ -85,12 +85,10 @@ public class LevelHandler : MonoBehaviour
         timeText.text = elapsedTime.ToString();
     }
 
-    public IEnumerator EnableLongerPad(float time)
+    public IEnumerator EnableLongerPad(float time, float xScale)
     {
-        PadObject.transform.localScale = new Vector3(1f, 2f, 1f);
+        PadObject.transform.localScale = new Vector3(xScale, 1f, 1f);
         yield return new WaitForSeconds(time);
         PadObject.transform.localScale = Vector3.one;
     }
-
-
 }
