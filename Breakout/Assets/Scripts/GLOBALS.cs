@@ -11,4 +11,6 @@ public class GLOBALS : MonoBehaviour {
     // power-ups
     public static int MAX_STICKY_BOUNCES = 5;
     public static float LONGER_PAD_TIME = 10;
+
+    public static bool isPaused = false;
 }
