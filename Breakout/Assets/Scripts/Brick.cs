@@ -40,7 +40,7 @@ public class Brick : MonoBehaviour
     {
         Instantiate(ParticlePrefab, transform.position, transform.rotation);
         GameObject sa = Instantiate(ScoreTextPrefab, transform.position, transform.rotation) as GameObject;
-        sa.GetComponent<ScoreAnimation>().SetLabel(score.ToString());
+        sa.GetComponent<TextMesh>().text = score.ToString();
 
         levelhandler.AddScore(score);
         Destroy(this.gameObject);

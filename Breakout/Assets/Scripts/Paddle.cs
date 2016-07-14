@@ -51,13 +51,19 @@ public class Paddle : MonoBehaviour
                 fixJoint2d.enabled = false;
                 hasStarted = false;
 
-                if (ball.transform.position.x > 0f)
+                ball.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+
+                if (rb2d.velocity.x > 0f)
+                {    
+                    ball.AddForce(new Vector2(1f,1f));
+                }
+                else if(rb2d.velocity.x < 0f)
                 {
-                    ball.AddForce(true);
+                    ball.AddForce(new Vector2(-1f,1f));
                 }
                 else
                 {
-                    ball.AddForce(false);
+                    ball.AddForce(new Vector2(0f, 1f));
                 }
             }
         }

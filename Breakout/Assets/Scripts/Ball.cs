@@ -22,7 +22,7 @@ public class Ball : MonoBehaviour
         {
             // Make sure the ball is not stuck in x-axis
 
-            if (rb2d.velocity.x > 0f && rb2d.velocity.x < 1f)
+      /*      if (rb2d.velocity.x > 0f && rb2d.velocity.x < 1f)
             {
                 rb2d.velocity = new Vector2(1f, rb2d.velocity.y);
             }
@@ -41,6 +41,7 @@ public class Ball : MonoBehaviour
             {
                 rb2d.velocity = new Vector2(rb2d.velocity.x, -1f);
             }
+            */
         }
     }
 
@@ -63,6 +64,12 @@ public class Ball : MonoBehaviour
     public void AddForce()
     {
         rb2d.AddForce(new Vector2(forceMag, forceMag));
+        hasStarted = true;
+    }
+
+    public void AddForce(Vector2 direction)
+    {
+        rb2d.AddForce(direction * forceMag);
         hasStarted = true;
     }
 
